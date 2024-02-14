@@ -10,6 +10,9 @@ const props = defineProps({
   releaseDate: Date,
   numOfColors: Number,
 });
+
+const onSale = typeof props.salePrice === 'number';
+const newRelease = isNewShoe(props.releaseDate);
 </script>
 
 <template>
@@ -18,21 +21,21 @@ const props = defineProps({
       <div class="image-container">
         <img :src="imageSrc" :alt="name" />
       </div>
-      <div class="infos-container">
+      <div class="row">
         <h3>{{ name }}</h3>
-        <span class="price">{{ formatPrice(price) }}</span>
-        <span class="color">{{ pluralize("Color", numOfColors) }}</span>
+        <span :class="'price' + (onSale ? ' on-sale' : '')">{{ formatPrice(price) }}</span>
+      </div>
+      <div class="row">
+        <span class="colors">{{ pluralize("Color", numOfColors) }}</span>
         <span v-if="salePrice" class="sale-price">
           {{ formatPrice(salePrice) }}
         </span>
       </div>
-      <div class="notice">
-        <div v-if="typeof salePrice === 'number'" class="on-sale">
-          <span>Sale</span>
-        </div>
-        <div v-else-if="isNewShoe(releaseDate)" class="new-release">
-          <span>Just Released!</span>
-        </div>
+      <div v-if="onSale" class="notice on-sale">
+        <span>Sale</span>
+      </div>
+      <div v-else-if="newRelease" class="notice new-release">
+        <span>Just Released!</span>
       </div>
     </article>
   </a>
@@ -45,12 +48,60 @@ const props = defineProps({
   article {
     display: flex;
     flex-direction: column;
+    position: relative;
   }
 
   img {
+    /* scale to container */
     width: 100%; // width: 340px;
     // max-height: 312px;
     border-radius: 16px 16px 4px 4px;
+  }
+
+  h3 {
+    font-weight: $weight-medium;
+  }
+
+  .row {
+    display: flex;
+  }
+
+  .price,
+  .sale-price {
+    margin-inline-start: auto;
+  }
+
+  .price.on-sale {
+    text-decoration: line-through;
+    color: $color-gray-700;
+  }
+
+  .colors {
+    color: $color-gray-700;
+  }
+
+  .sale-price {
+    color: $color-primary;
+    font-weight: $weight-medium;
+  }
+
+  .notice {
+    position: absolute;
+    top: 12px;
+    right: -4px;
+    border-radius: 2px;
+    font-size: 0.875rem;
+    font-weight: $weight-xmedium;
+    color: $color-white;
+    padding: 0.5rem 0.8rem;
+
+    &.on-sale {
+      background-color: $color-primary;
+    }
+
+    &.new-release {
+      background-color: $color-secondary;
+    }
   }
 }
 </style>
