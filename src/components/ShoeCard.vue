@@ -7,7 +7,7 @@ const props = defineProps({
   imageSrc: String,
   price: Number,
   salePrice: Number,
-  releaseDate: Date,
+  releaseDate: Number, //Date,
   numOfColors: Number,
 });
 
@@ -17,7 +17,7 @@ const newRelease = isNewShoe(props.releaseDate);
 
 <template>
   <a class="shoe-card" :href="`/shoes/${slug}`">
-    <article :class="`shoe-${variant}`">
+    <article>
       <div class="image-container">
         <img :src="imageSrc" :alt="name" />
       </div>
@@ -64,12 +64,13 @@ const newRelease = isNewShoe(props.releaseDate);
 
   .row {
     display: flex;
+    justify-content: space-between;
   }
 
-  .price,
-  .sale-price {
-    margin-inline-start: auto;
-  }
+  // .price,
+  // .sale-price {
+  //   margin-inline-start: auto;
+  // }
 
   .price.on-sale {
     text-decoration: line-through;

@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef } from "vue";
+import { shallowRef, watch } from "vue";
 import IconChevronDown from "~icons/feather/chevron-down";
 import IconChevronUp from "~icons/feather/chevron-up";
 import ShoeSidebar from "./ShoeSidebar.vue";
@@ -18,9 +18,22 @@ const onTitleChanged = (e) => {
 const sortOptions = [
   { text: "Newest Releases", value: "newest" },
   { text: "Price", value: "price" },
-  { text: "xxx", value: "xxx" },
 ];
-const sortSelected = shallowRef(null); //shallowRef(sortOptions[0].value);
+
+const sortSelected = shallowRef(sortOptions[0].value);
+
+const sortShoes = () => {
+  console.log("sort executed")
+  if (sortSelected.value === "price")
+    SHOES.sort((a, b) => (a.salePrice || a.price) - (b.salePrice || b.price));
+  else if (sortSelected.value === "newest")
+    SHOES.sort((a, b) => b.releaseDate - a.releaseDate);
+};
+sortShoes();
+
+watch(sortSelected, (newv, oldv) => {
+  sortShoes();
+});
 </script>
 
 <template>
@@ -30,8 +43,8 @@ const sortSelected = shallowRef(null); //shallowRef(sortOptions[0].value);
         <h2>{{ title }}</h2>
         <label class="sortSelection"><span>Sort</span>
           <div class="custom-select-wrapper">
-            <select>
-              <option v-for="{ text, value } in sortOptions" value="value">
+            <select v-model="sortSelected">
+              <option v-for="{ text, value } in sortOptions" :value="value">
                 {{ text }}
               </option>
             </select>
