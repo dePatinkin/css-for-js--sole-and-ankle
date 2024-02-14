@@ -17,6 +17,7 @@ const links = LINKS;
         {{ text }}
       </a>
     </nav>
+    <div class="spacer"></div>
   </div>
 </template>
 
@@ -29,6 +30,11 @@ const links = LINKS;
   align-items: center;
   padding: 1.25rem 2rem;
   border-bottom: 1px solid $color-gray-300;
+
+  .logo,
+  .spacer {
+    flex: 1;
+  }
 
   .logo {
     //flex: 1;
@@ -46,17 +52,17 @@ const links = LINKS;
   nav {
     //flex: 4;
     padding-inline: 1.5rem;
-    position: relative;
-    margin: 0;
+    // position: relative;
+    // margin: 0;
 
-    @media screen and (min-width: 1150px) {
-      inset: 0;
-      padding-inline: 10.75rem;
-      position: absolute;
-      margin: auto;
-      width: fit-content;
-      height: min-content;
-    }
+    // @media screen and (min-width: 1150px) {
+    //   inset: 0;
+    //   padding-inline: 10.75rem;
+    //   position: absolute;
+    //   margin: auto;
+    //   width: fit-content;
+    //   height: min-content;
+    // }
 
     &>a {
       text-transform: uppercase;
@@ -68,9 +74,10 @@ const links = LINKS;
         color: $color-secondary;
       }
 
-      // &::after {
-      //   content: ' ';
-      // }
+      &::after {
+        /* &zwnj; https://www.compart.com/en/unicode/search?q=space#characters */
+        content: '\200B';
+      }
     }
   }
 }
