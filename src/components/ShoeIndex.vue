@@ -39,7 +39,9 @@ const sortSelected = shallowRef(null); //shallowRef(sortOptions[0].value);
         </label>
       </header>
       <div class="shoes-container">
-        <ShoeCard v-for="shoe in SHOES" v-bind="shoe" />
+        <div class="shoe-wrapper" v-for="shoe in SHOES" :key="shoe.slug">
+          <ShoeCard v-bind="shoe" />
+        </div>
       </div>
     </main>
     <aside>
@@ -61,36 +63,48 @@ const sortSelected = shallowRef(null); //shallowRef(sortOptions[0].value);
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
+  align-items: baseline;
   padding-block: 4rem 2.5rem; //64px 40px;
   padding-inline: 2rem 2.75rem; //32px 28px;
 
   main {
-    // display: flex;
-    // flex-direction: row;
-    // flex-wrap: wrap;
-    // gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    //flex-direction: row;
+    //flex-wrap: wrap;
+    gap: 2rem;
 
     .shoes-container {
-      // display: flex;
-      // flex-wrap: wrap;
-      // gap: 2rem;
-      float: inline-start;
-      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      // float: inline-start;
+      // width: 100%;
+
+      >.shoe-wrapper {
+        flex: 1 0 340px;
+      }
     }
 
     header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+
       h2 {
         font-size: 1.5rem;
         line-height: 1.5rem;
-        float: inline-start;
+        //float: inline-start;
       }
 
       .sortSelection {
-        float: inline-end;
-      }
+        //float: inline-end;
+        // display: flex;
+        // align-items: baseline;
 
-      label>span {
-        padding-inline: 1rem;
+        >span {
+          padding-inline: 1rem;
+        }
       }
     }
 

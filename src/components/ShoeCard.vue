@@ -48,8 +48,8 @@ const props = defineProps({
   }
 
   img {
-    width: 340px;
-    max-height: 312px;
+    width: 100%; // width: 340px;
+    // max-height: 312px;
     border-radius: 16px 16px 4px 4px;
   }
 }
