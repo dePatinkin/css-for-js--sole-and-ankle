@@ -48,6 +48,7 @@ const links = LINKS;
   position: relative;
   align-items: center;
   padding: 1.25rem 2rem;
+  padding-inline-end: 0;
   border-bottom: 1px solid $color-gray-300;
 
   a {
@@ -74,7 +75,7 @@ const links = LINKS;
 
   nav {
     //flex: 4;
-    padding-inline: 1.5rem;
+    padding-inline-start: 1.5rem;
     // position: relative;
     // margin: 0;
 
@@ -109,12 +110,13 @@ const links = LINKS;
   }
 
   @media (max-width: $breakpoint-md) {
+    justify-content: space-between;
+    align-items: baseline;
+    padding-inline-end: 2rem;
+
     nav {
       display: none;
     }
-
-    justify-content: space-between;
-    align-items: baseline;
 
     .spacer {
       display: none;
@@ -133,6 +135,7 @@ const links = LINKS;
         //display: none;
         position: absolute;
         bottom: -2rem;
+        right: 0;
         opacity: 0;
         transition: opacity 0.5s ease;
       }
