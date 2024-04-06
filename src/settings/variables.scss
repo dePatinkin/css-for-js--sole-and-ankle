@@ -11,3 +11,11 @@ $weight-normal: 500;
 $weight-medium: 600;
 $weight-xmedium: 700;
 $weight-bold: 800;
+
+@function rem($size) {
+    @return calc($size / 16px * 1rem);
+}
+
+$breakpoint-sm: rem(600px); //phone
+$breakpoint-md: rem(950px); //tablet
+$breakpoint-lg: rem(1300px); //laptop

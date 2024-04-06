@@ -10,7 +10,6 @@ import ShoeIndex from "./components/ShoeIndex.vue";
   <ShoeIndex />
 </template>
 
-//
 <style scoped lang="scss">
 @import "./settings/variables";
 
@@ -28,5 +27,11 @@ import ShoeIndex from "./components/ShoeIndex.vue";
 
 ::v-deep(.graphics-wrapper) {
   line-height: 0;
+}
+
+::v-deep(.graphics-wrapper svg) {
+  line-height: 0;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 </style>

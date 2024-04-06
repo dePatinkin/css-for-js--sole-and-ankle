@@ -40,6 +40,12 @@ watch(sortSelected, (newv, oldv) => {
   <div class="shoe-index">
     <main>
       <header>
+        <section class="breadcrumbs">
+          <nav>
+            <a :href="breadcrumb1?.path">{{ breadcrumb1?.text }}</a>
+            <a :href="breadcrumb2?.path">{{ breadcrumb2?.text }}</a>
+          </nav>
+        </section>
         <h2>{{ title }}</h2>
         <label class="sortSelection"><span>Sort</span>
           <div class="custom-select-wrapper">
@@ -86,6 +92,7 @@ watch(sortSelected, (newv, oldv) => {
     //flex-direction: row;
     //flex-wrap: wrap;
     gap: 2rem;
+    flex: 1;
 
     .shoes-container {
       display: flex;
@@ -93,6 +100,11 @@ watch(sortSelected, (newv, oldv) => {
       gap: 2rem;
       // float: inline-start;
       // width: 100%;
+
+      @supports (display: grid) {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      }
 
       >.shoe-wrapper {
         flex: 1 0 340px;
@@ -104,16 +116,36 @@ watch(sortSelected, (newv, oldv) => {
       justify-content: space-between;
       align-items: baseline;
 
+      @media screen and (max-width: $breakpoint-md) {
+        display: grid;
+        grid-template-areas: 'breadcrumbs none' 'title sort';
+      }
+
       h2 {
         font-size: 1.5rem;
         line-height: 1.5rem;
         //float: inline-start;
+        grid-area: title;
+      }
+
+      .breadcrumbs {
+        display: none;
+        grid-area: breadcrumbs;
+
+        @media screen and (max-width: $breakpoint-md) {
+          display: revert;
+        }
       }
 
       .sortSelection {
         //float: inline-end;
         // display: flex;
         // align-items: baseline;
+        grid-area: sort;
+
+        @media screen and (max-width: $breakpoint-sm) {
+          display: none;
+        }
 
         >span {
           padding-inline: 1rem;
@@ -161,31 +193,45 @@ watch(sortSelected, (newv, oldv) => {
   aside {
     display: flex;
     flex-direction: column;
-    min-width: 15.5rem; //11.875rem;
+    flex-basis: 15.5rem; //min-width: 15.5rem; //11.875rem;
     padding-inline-end: 2rem;
+    text-wrap: nowrap;
 
-    .breadcrumbs {
-      margin-block-end: 2.25rem;
-      min-height: 45.6px;
-      justify-self: center;
+    @media screen and (max-width: $breakpoint-md) {
+      display: none;
+    }
+  }
 
-      nav {
-        display: flex;
-        font-size: 0.875rem;
+  .breadcrumbs {
+    margin-block-end: 2.25rem;
+    min-height: 45.6px;
+    justify-self: center;
+
+    @media screen and (max-width: $breakpoint-md) {
+      margin-block-end: 0;
+      min-height: revert;
+    }
+
+    @media screen and (max-width: $breakpoint-sm) {
+      margin-block-end: 0.5rem;
+    }
+
+    nav {
+      display: flex;
+      font-size: 0.875rem;
+    }
+
+    a {
+      color: $color-gray-500;
+
+      &:hover {
+        color: $color-gray-900;
       }
 
-      a {
-        color: $color-gray-500;
-
-        &:hover {
-          color: $color-gray-900;
-        }
-
-        &:not(:last-of-type)::after {
-          content: "/";
-          margin-inline: 0.5rem;
-          color: $color-gray-300;
-        }
+      &:not(:last-of-type)::after {
+        content: "/";
+        margin-inline: 0.5rem;
+        color: $color-gray-300;
       }
     }
   }

@@ -99,5 +99,14 @@ import IconShoppingBag from "~icons/feather/shopping-bag";
   }
 
   // }
+
+  @media (max-width: $breakpoint-md) {
+    height: 0.25rem;
+    padding: 0;
+
+    >* {
+      display: none;
+    }
+  }
 }
 </style>

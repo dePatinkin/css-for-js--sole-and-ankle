@@ -36,7 +36,7 @@ watch(currentPath, () => {
   <section class="filters">
     <!-- <p>currentPath: {{ currentPath }}</p> -->
     <a v-for="{ text, path } in links" :key="path" :href="path" :class="path === currentPath ? 'current' : ''">{{ text
-    }}</a>
+      }}</a>
   </section>
 </template>
 
